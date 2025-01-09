@@ -10,14 +10,6 @@ namespace Person
     {
         static void Main(string[] args)
         {
-            Date johnBirthDate = new Date(1985, 5, 15);
-            Passport johnPassport = new Passport("1001", "John", "Smith", johnBirthDate, "USA", "American", "married", "1234 Main St, City");
-            johnPassport.AddKid("21442");
-            // יצירת אובייקט Employee עם רק תעודת זהות
-            Employee johnEmployee = new Employee(johnPassport, "john.smith@example.com", "123-456-7890", 50.0, 160.0);
-
-            // הצגת פרטי העובד באמצעות ToString
-            Console.WriteLine(johnEmployee.ToString());
         }
         static void Targil1()
         {
@@ -57,5 +49,81 @@ namespace Person
                 }
             }
         }
+        static void Targil2()
+        {
+            Employee[] employees = new Employee[3];
+            double totalSalary = 0;
+            double totalNationalInsurance = 0;
+            double totalIncomeTax = 0;
+
+            for (int i = 0; i < 3; i++)
+            {
+                Console.WriteLine($"Enter details for Employee {i + 1}:");
+
+                Console.Write("Enter passport ID: ");
+                string id = Console.ReadLine();
+
+                Console.Write("Enter first name: ");
+                string name = Console.ReadLine();
+
+                Console.Write("Enter last name: ");
+                string lastname = Console.ReadLine();
+
+                Console.Write("Enter birth year: ");
+                int year = int.Parse(Console.ReadLine());
+
+                Console.Write("Enter birth month: ");
+                int month = int.Parse(Console.ReadLine());
+
+                Console.Write("Enter birth day: ");
+                int day = int.Parse(Console.ReadLine());
+
+                Console.Write("Enter country: ");
+                string country = Console.ReadLine();
+
+                Console.Write("Enter nation: ");
+                string nation = Console.ReadLine();
+
+                Console.Write("Enter family status: ");
+                string familysituation = Console.ReadLine();
+
+                Console.Write("Enter address: ");
+                string address = Console.ReadLine();
+
+                Date birthDate = new Date(year, month, day);
+                Passport passport = new Passport(id, name, lastname, birthDate, country, nation, familysituation, address);
+
+                Console.Write("Enter email: ");
+                string email = Console.ReadLine();
+
+                Console.Write("Enter phone number: ");
+                string phoneNumber = Console.ReadLine();
+
+                Console.Write("Enter hourly income: ");
+                double hourlyIncome = double.Parse(Console.ReadLine());
+
+                Console.Write("Enter hours worked: ");
+                double hoursWorked = double.Parse(Console.ReadLine());
+
+                Employee employee = new Employee(passport, email, phoneNumber, hourlyIncome, hoursWorked);
+                employees[i] = employee;
+
+                totalSalary += employee.GetHourlyincome() * employee.GetHoursworked();
+                totalNationalInsurance += (employee.GetHourlyincome() * employee.GetHoursworked()) * 0.031;
+                totalIncomeTax += (employee.GetHourlyincome() * employee.GetHoursworked()) * 0.25;
+            }
+
+            Console.WriteLine("\nEmployee Details:");
+            foreach (Employee employee in employees)
+            {
+                Console.WriteLine(employee.ToString());
+            }
+
+            Console.WriteLine("\nSummary Report:");
+            Console.WriteLine($"Total Salary Paid by Employer: {totalSalary}");
+            Console.WriteLine($"Total National Insurance Contribution: {totalNationalInsurance}");
+            Console.WriteLine($"Total Income Tax: {totalIncomeTax}");
+        }
     }
+    
 }
